@@ -3,24 +3,27 @@
 using namespace std;
 
 template<typename T>
-class SingleLinkedList
+class DoubleLinkedList
 {
 private:
-    int size;
-
     struct Node
     {
         T data;
+        Node* previousNode;
         Node* next;
     };
 
     Node* head;
-public:
+    Node* tail;
 
-    SingleLinkedList()
+    int size;
+
+public:
+    DoubleLinkedList()
     {
-        size = 0;
         head = nullptr;
+        tail = nullptr;
+        size = 0;
     }
 
     void push_front(T data)
@@ -29,7 +32,7 @@ public:
 
         if (head == nullptr)
         {
-            head = newNode;
+            head = tail = newNode;
 
             newNode->data = data;
             newNode->next = nullptr;
@@ -41,95 +44,17 @@ public:
 
             head = newNode;
         }
-
         size++;
-    }
-
-    void push_back(T data)
-    {
-        Node* newNode = new Node;
-
-        if (head == nullptr)
-        {
-            head = newNode;
-
-            newNode->data = data;
-            newNode->next = nullptr;
-        }
-        else
-        {
-            Node* currentNode = head;
-
-            while (currentNode->next != nullptr)
-            {
-                currentNode = currentNode->next;
-            }
-
-            currentNode->next = newNode;
-
-            newNode->data = data;
-            newNode->next = nullptr;
-        }
-
-        size++;
-    }
-
-    void pop_front()
-    {
-        if (head == nullptr)
-        {
-            cout << "Linked List is Empty" << endl;
-        }
-        else
-        {
-            Node* deleteNode = head;
-
-            head = deleteNode->next;
-
-            delete deleteNode;
-
-            size--;
-        }
-    }
-
-    void show()
-    {
-        Node* currentNode = head;
-
-        while (currentNode != nullptr)
-        {
-            cout << currentNode->data << " "
-
-            currentNode = currentNode->next;
-        }
-    }
-
-    void pop_back()
-    {
-
-
-        size--;
     }
 
 };
 
 int main()
 {
-    SingleLinkedList<int> singleLinkedList;
+    DoubleLinkedList<int>doubleLinkedList;
 
-    singleLinkedList.push_front(10);
-    singleLinkedList.push_front(20);
-    singleLinkedList.push_back(5);
-    singleLinkedList.push_back(10);
-
-    singleLinkedList.pop_front();
-    singleLinkedList.pop_front();
-    singleLinkedList.pop_front();
-    singleLinkedList.pop_front();
-    singleLinkedList.pop_front();
-
-    singleLinkedList.show();
-
+    doubleLinkedList.push_front(10);
+    doubleLinkedList.push_front(10);
 
     return 0;
 }
