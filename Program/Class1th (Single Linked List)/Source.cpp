@@ -144,7 +144,7 @@ public:
         return size;
     }
 
-    ~singleLinkedList()
+    ~SingleLinkedList()
     {
         while (head != nullptr)
         {
