@@ -1,29 +1,34 @@
 ﻿#include <iostream>
 
-#define SIZE 5
-
 using namespace std;
 
 template<typename T>
-class CircleQueue
+class Vector
 {
 private:
-    int rear;
-    int front;
+    int size;
+    int capacity;
 
-    T container[SIZE];
+    T* container;
 
 public:
-    CircleQueue()
+    Vector()
     {
-        rear = SIZE - 1;
-        front = SIZE - 1;
-
-        for (int i = 0; i < SIZE; i++)
-        {
-            container[i] = NULL;
-        }
+        size = 0;
+        capacity = 0;
+        container = nullptr;
     }
+
+    void push_back(T data)
+    {
+
+    }
+
+    void resize(int newSize)
+    {
+
+    }
+
 };
 
 int main()
