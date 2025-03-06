@@ -1,130 +1,123 @@
 ﻿#include <iostream>
 
-#define SIZE 6
+#define SIZE 8
 
 using namespace std;
 
-template <typename KEY, typename VALUE>
-class HashTable
+template <typename T>
+class PriorityQueue
 {
 private:
-    struct Node
-    {
-        KEY key;
-        VALUE value;
-
-        Node* next;
-    };
-
-    struct Bucket
-    {
-        int count;
-        Node* head;
-    };
-
-    Bucket bucket[SIZE];
-
+    int index;
+    T container[SIZE];
 public:
-    HashTable()
+    PriorityQueue()
     {
+        index = 0;
+
         for (int i = 0; i < SIZE; i++)
         {
-            bucket[i].count = 0;
-            bucket[i].head = nullptr;
+            container[i] = NULL;
         }
     }
-    template <typename T>
-    const int & HashFunction(T key)
+
+    void push(T data)
     {
-        unsigned int hashIndex = (int)key % SIZE;
-
-        return hashIndex;
-    }
-
-    template<>
-    const int& HashFunction(const char* key)
-    {
-        int hash = 0;
-
-        for (int i = 0; i < strlen(key); i++)
+        if (index + 1 >= SIZE)
         {
-            hash += key[i];
-        }
-
-        int hashIndex = (int)key % SIZE;
-
-        return hashIndex;
-    }
-
-    Node* CreateNode(KEY key, VALUE value)
-    {
-        Node* newNode = new Node;
-
-        newNode->key = key;
-        newNode->value = value;
-        newNode->next = nullptr;
-
-        return newNode;
-    }
-
-    void Insert(KEY key, VALUE value)
-    {
-        // 해시 함수를 통해서 값을 받는 임시 변수.
-        int hashIndex = HashFunction(key);
-
-        // 새로운 노드를 생성합니다.
-        Node* newNode = CreateNode(key, value);
-
-        // 노드가 1개라도 존재하지 않는다면,
-        if (bucket[hashIndex].count == 0)
-        {
-            // bucket[hashIndex]의 head 포인터가 newNode를 가리키게 합니다.
-            bucket[hashIndex].head = newNode;
+            cout << "Priority Queue Overflow" << endl;
         }
         else
         {
-            newNode->next = bucket[hashIndex].head;
+            container[++index] = data;
 
-            bucket[hashIndex].head = newNode;
+            int child = index;
+            int parent = child / 2;
+
+            while (child > 1)
+            {
+                if (container[parent] < container[child])
+                {
+                    std::swap(container[parent], container[child]);
+                }
+
+                child = parent;
+                parent = child / 2;
+            }
         }
-
-        // bucket[hashIndex]의 count를 증가시킵니다.
-        bucket[hashIndex].count++;
     }
 
-    ~HashTable()
+    void pop()
     {
-        for (int i = 0; i < SIZE; i++)
+        if (index <= 0)
         {
-            Node* deleteNode = bucket[i].head;
-            Node* nextNode = bucket[i].head;
+            cout << "Priority Queue is Empty" << endl;
+        }
+        else
+        {
+            container[1] = container[index];
 
-            if (bucket[i].head == nullptr)
+            container[index--] = NULL;
+
+            int parent = 1;
+
+            while (parent * 2 <= index)
             {
-                continue;
-            }
-            else
-            {
-                while (nextNode != nullptr)
+                int child = parent * 2;
+
+                if (container[child] < container[child + 1])
                 {
-                    nextNode = deleteNode->next;
+                    child++;
+                }
 
-                    delete deleteNode;
+                if (container[child] < container[parent])
+                {
+                    break;
+                }
+                else
+                {
+                    std::swap(container[parent], container[child]);
 
-                    deleteNode = nextNode;
+                    parent = child;
                 }
             }
         }
     }
 
+    const T& top()
+    {
+        return container[1];
+    }
+
+    const bool& empty()
+    {
+        if (index <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 };
 
 int main()
 {
-    HashTable<const char*, int> hashTable;
+    PriorityQueue<int> priorityQueue;
 
-    hashTable.Insert("Sword", 10000);
-    hashTable.Insert("Armor", 5000);
+    priorityQueue.push(5);
+    priorityQueue.push(17);
+    priorityQueue.push(3);
+    priorityQueue.push(1);
+    priorityQueue.push(9);
+
+    while (priorityQueue.empty() == false)
+    {
+        cout << priorityQueue.top() << endl;
+
+        priorityQueue.pop();
+    }
 
     return 0;
 }
