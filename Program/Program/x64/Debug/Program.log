@@ -1,16 +1,2 @@
 ﻿  Program.cpp
-C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(54,25): warning C4311: '형식 캐스트': 'const char *'에서 'int'(으)로 포인터가 잘립니다.
-      C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(54,25):
-      템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
-          C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(124,33):
-          컴파일되는 클래스 템플릿 인스턴스화 'HashTable<const char *,int>'에 대한 참조를 확인하세요.
-          C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(45,16):
-          클래스 템플릿 멤버 함수 'const int &HashTable<const char *,int>::HashFunction<const char*>(const char *)'을(를) 컴파일하는 중입니다.
-              C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(73,23):
-              'HashTable<const char *,int>::Insert'에서 'HashTable<const char *,int>::HashFunction'에 대한 첫 번째 참조를 확인하세요.
-              C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(126,21):
-              'main'에서 'HashTable<const char *,int>::Insert'에 대한 첫 번째 참조를 확인하세요.
-  
-C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(54,25): warning C4302: '형식 캐스트': 'const char *'에서 'int'(으)로 잘립니다.
-C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\Program\Program.cpp(56,1): warning C4172: 지역 변수 또는 임시 : hashIndex의 주소를 반환하는 중
   Program.vcxproj -> C:\Users\양현규\Desktop\겜프\Github\GameProject4\Program\x64\Debug\Program.exe

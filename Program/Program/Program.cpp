@@ -5,26 +5,34 @@
 using namespace std;
 
 template<typename T>
-class AdjacencyMatrix
+class AdjacencyList
 {
 private:
+    struct Node
+    {
+        T data;
+        Node* next;
+
+        Node(T data, Node* link = nullptr)
+        {
+            this->data = data;
+            next = link;
+        }
+    };
+
     int size; // 정점의 개수
-    T vertxt[SIZE]; // 정점의 집합
-    int matrix[SIZE][SIZE]; // 인접 행렬
+    T vertex[SIZE]; // 정점의 집합
+    Node* list[SIZE]; // 인접 리스트
 
 public:
-    AdjacencyMatrix()
+    AdjacencyList()
     {
         size = 0;
 
         for (int i = 0; i < SIZE; i++)
         {
-            vertxt[i] = NULL;
-            
-            for (int j = 0; j < SIZE; j++)
-            {
-                matrix[i][j] = 0;
-            }
+            list[i] = NULL;
+            vertex[i] = NULL;
         }
     }
 
@@ -32,7 +40,7 @@ public:
     {
         if (size >= SIZE)
         {
-            cout << "Adjacency Matrix Overflow" << endl;
+            cout << "Adjacency List Overflow" << endl;
         }
         else
         {
@@ -44,19 +52,29 @@ public:
     {
         if (size <= 0)
         {
-            cout << "Ajancency Matrix is Empty" << endl;
+            cout << "Adjacency List is Empty" << endl;
         }
-        else if (i >= size || >= size)
+        else if (i >= size || j >= size)
         {
             cout << "Index Out of Range" << endl;
         }
         else
         {
-            matrix[i][j] = 1;
-            matrix[j][i] = 1;
+            list[i] = new Node(vertex[j], list[i]);
+            list[j] = new Node(vertex[i], list[j]);
         }
     }
 
+    ~AdjacencyList()
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            if (list[i] != nullptr)
+            {
+                delete[ ] list[i];
+            }
+        }
+    }
 };
 
 int main()
